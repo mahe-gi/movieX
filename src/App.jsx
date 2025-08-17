@@ -17,6 +17,7 @@ export default function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   const fetchMovies = async (query) => {
     setIsLoading(true);
@@ -50,8 +51,18 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchMovies(search);
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
   }, [search]);
+  useEffect(() => {
+    fetchMovies(debouncedSearch);
+  }, [debouncedSearch]);
+
   return (
     <main>
       <div className="pattern" />
