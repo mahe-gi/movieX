@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import Search from "./components/search";
+import Search from "./components/Search";
 import MovieCard from "./components/MovieCard";
+import { updateSearchCount } from "./appwrite";
 
 const BASE_API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -42,6 +43,7 @@ export default function App() {
       }
 
       setMovieList(data.results || []);
+      updateSearchCount();
     } catch (e) {
       console.log(e);
       setErrorMessage("Error Fetching Movies Please Try again Later ..");
