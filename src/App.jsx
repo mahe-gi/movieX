@@ -34,8 +34,6 @@ export default function App() {
       }
       const data = await response.json();
 
-      console.log(data.results);
-
       if (data.Response === "False") {
         setErrorMessage(data.Error || "Failed to fetch movies .. ");
         setMovieList([]);
@@ -48,7 +46,6 @@ export default function App() {
         await updateSearchCount(query, data.results[0]);
       }
     } catch (e) {
-      console.log(e);
       setErrorMessage("Error Fetching Movies Please Try again Later ..");
     } finally {
       setIsLoading(false);
